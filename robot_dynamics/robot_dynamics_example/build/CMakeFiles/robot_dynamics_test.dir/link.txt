@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/robot_dynamics_test.dir/main.cpp.o -o robot_dynamics_test   -L/home/zdy/ros2_ws/机械臂动力学参数辨识/arm_iden/动力学参数辨识/symbotic_dyn/robot_dynamics/robot_dynamics_example/lib  -Wl,-rpath,/home/zdy/ros2_ws/机械臂动力学参数辨识/arm_iden/动力学参数辨识/symbotic_dyn/robot_dynamics/robot_dynamics_example/lib -lrobot_dynamics_core -lm 

@@ -1,0 +1,4 @@
+/home/zdy/ros2_ws/机械臂动力学参数辨识/arm_iden/动力学参数辨识/symbotic_dyn/robot_dynamics/build/CMakeFiles/robot_dynamics_core.dir
+/home/zdy/ros2_ws/机械臂动力学参数辨识/arm_iden/动力学参数辨识/symbotic_dyn/robot_dynamics/build/CMakeFiles/robot_dynamics_module.dir
+/home/zdy/ros2_ws/机械臂动力学参数辨识/arm_iden/动力学参数辨识/symbotic_dyn/robot_dynamics/build/CMakeFiles/edit_cache.dir
+/home/zdy/ros2_ws/机械臂动力学参数辨识/arm_iden/动力学参数辨识/symbotic_dyn/robot_dynamics/build/CMakeFiles/rebuild_cache.dir

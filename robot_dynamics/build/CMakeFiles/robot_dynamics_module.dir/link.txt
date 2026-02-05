@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -flto -shared  -o robot_dynamics_module.cpython-310-x86_64-linux-gnu.so CMakeFiles/robot_dynamics_module.dir/robot_dynamics.cpp.o CMakeFiles/robot_dynamics_module.dir/robot_wrapper.cpp.o 
