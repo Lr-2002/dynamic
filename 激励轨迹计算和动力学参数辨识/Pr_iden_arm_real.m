@@ -169,13 +169,29 @@ hold on;plot(tau2(8,:)),plot(t_rm{8}),xlabel('index'),ylabel('tor_8'),legend('td
 function [qf, dqf, ddqf, tf, q_rm, dq_rm, t_rm] = data_parse(data,dlta_t_msrd)
 
 % 原始关节角度，角速度，电流数据
-% q_rm = {data(:,1), data(:,2), data(:,3), data(:,4), data(:,5), data(:,6), data(:,7), data(:,8)};
-% dq_rm = {data(:,9), data(:,10), data(:,11), data(:,12), data(:,13), data(:,14), data(:,15), data(:,16)};
-% t_rm = {data(:,17), data(:,18), data(:,19), data(:,20), data(:,21), data(:,22), data(:,23), data(:,24)};
+q_rm = {data(:,1), data(:,2), data(:,3), data(:,4), data(:,5), data(:,6), data(:,7), data(:,8)};
+dq_rm = {data(:,9), data(:,10), data(:,11), data(:,12), data(:,13), data(:,14), data(:,15), data(:,16)};
+t_rm = {data(:,17), data(:,18), data(:,19), data(:,20), data(:,21), data(:,22), data(:,23), data(:,24)};
 
-q_rm = {data(:,1), data(:,2), -data(:,3), data(:,4), data(:,5), data(:,6), data(:,7), data(:,8)};
-dq_rm = {data(:,9), data(:,10), -data(:,11), data(:,12), data(:,13), data(:,14), data(:,15), data(:,16)};
-t_rm = {data(:,17), data(:,18), -data(:,19), data(:,20), data(:,21), data(:,22), data(:,23), data(:,24)};
+% Wrist coupling (motor -> URDF) for j7/j8
+% [q7, q8]^T = [0.5 -0.5; 0.5 0.5] * [m7, m8]^T
+wrist_A = [0.5, -0.5; 0.5, 0.5];
+m7 = q_rm{7}; m8 = q_rm{8};
+q_rm{7} = wrist_A(1,1) * m7 + wrist_A(1,2) * m8;
+q_rm{8} = wrist_A(2,1) * m7 + wrist_A(2,2) * m8;
+
+dm7 = dq_rm{7}; dm8 = dq_rm{8};
+dq_rm{7} = wrist_A(1,1) * dm7 + wrist_A(1,2) * dm8;
+dq_rm{8} = wrist_A(2,1) * dm7 + wrist_A(2,2) * dm8;
+
+% If motor torques are logged, map to URDF joint torques:
+% tau_urdf = inv(wrist_A') * tau_motor = [1 -1; 1 1] * [t7; t8]
+apply_wrist_coupling_to_torque = true;
+if apply_wrist_coupling_to_torque
+    t7 = t_rm{7}; t8 = t_rm{8};
+    t_rm{7} = t7 - t8;
+    t_rm{8} = t7 + t8;
+end
 
 qf1 = q_rm{1}; qf2 = q_rm{2}; qf3 = q_rm{3};
 qf4 = q_rm{4}; qf5 = q_rm{5}; qf6 = q_rm{6};
